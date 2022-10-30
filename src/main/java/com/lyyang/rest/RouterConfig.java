@@ -1,5 +1,6 @@
 package com.lyyang.rest;
 
+import com.lyyang.filter.ExampleHandlerFilterFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,9 +20,12 @@ public class RouterConfig {
     @Autowired
     private IntervalHandler intervalHandler;
 
+    @Autowired
+    private ExampleHandlerFilterFunction exampleHandlerFilterFunction;
+
     @Bean
     public RouterFunction<ServerResponse> timerRouter(){
-        return route(GET("fhello2"),functionHandler::getTime);
+        return route(GET("fhello2"),functionHandler::getTime).filter(exampleHandlerFilterFunction);
     }
 
     @Bean
