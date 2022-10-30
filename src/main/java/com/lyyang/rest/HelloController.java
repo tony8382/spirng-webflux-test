@@ -16,7 +16,7 @@ public class HelloController {
         return Mono.just("welcome to reactiveDDD web");
     }
 
-    @GetMapping("hello")
+    @GetMapping("hello2")
     public String hello2() {
         log.info("HGGGGH");
 
