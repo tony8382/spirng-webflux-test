@@ -16,9 +16,16 @@ public class RouterConfig {
     @Autowired
     private FunctionHandler functionHandler;
 
+    @Autowired
+    private IntervalHandler intervalHandler;
+
     @Bean
     public RouterFunction<ServerResponse> timerRouter(){
         return route(GET("fhello2"),functionHandler::getTime);
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> intervalRouter(){
+        return route(GET("fhello3"),intervalHandler::getTimes);
+    }
 }
