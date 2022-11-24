@@ -1,5 +1,6 @@
 package com.lyyang.rest;
 
+import com.lyyang.exception.AAException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class IntervalHandler {
                         .map(l -> new SimpleDateFormat("HH:mm:ss").format(new Date())), String.class);
     }
 
-    public Mono<ServerResponse> checkParameter(ServerRequest request) {
+    public Mono<ServerResponse> checkParameterRuntimeException(ServerRequest request) {
         try {
 
             request.queryParam("name").get();
@@ -32,8 +33,19 @@ public class IntervalHandler {
             return ok().contentType(MediaType.TEXT_PLAIN)
                     .body(Mono.just("Hello, " + request.queryParam("name").get()), String.class);
         } catch (Exception e) {
-            log.error("HH", e);
-            return Mono.error(e);
+            return Mono.error(new RuntimeException("EE"));
+        }
+    }
+
+    public Mono<ServerResponse> checkParameterCustomException(ServerRequest request) {
+        try {
+
+            request.queryParam("name").get();
+            request.queryParam("G").get();
+            return ok().contentType(MediaType.TEXT_PLAIN)
+                    .body(Mono.just("Hello, " + request.queryParam("name").get()), String.class);
+        } catch (Exception e) {
+            return Mono.error(new AAException("EEGG"));
         }
     }
 }
