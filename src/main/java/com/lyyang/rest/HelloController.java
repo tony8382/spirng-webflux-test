@@ -22,4 +22,5 @@ public class HelloController {
 
         return "welcome to reactiveDDD2web";
     }
+
 }

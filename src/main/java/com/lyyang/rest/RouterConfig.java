@@ -4,7 +4,6 @@ import com.lyyang.filter.ExampleHandlerFilterFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
@@ -24,12 +23,13 @@ public class RouterConfig {
     private ExampleHandlerFilterFunction exampleHandlerFilterFunction;
 
     @Bean
-    public RouterFunction<ServerResponse> timerRouter(){
-        return route(GET("fhello2"),functionHandler::getTime).filter(exampleHandlerFilterFunction);
+    public RouterFunction<ServerResponse> timerRouter() {
+        return route(GET("fhello2"), functionHandler::getTime).filter(exampleHandlerFilterFunction);
     }
 
     @Bean
-    public RouterFunction<ServerResponse> intervalRouter(){
-        return route(GET("fhello3"),intervalHandler::getTimes);
+    public RouterFunction<ServerResponse> intervalRouter() {
+        return route(GET("fhello3"), intervalHandler::getTimes)
+                .andRoute(GET("fhello4"), intervalHandler::sayHello);
     }
 }
