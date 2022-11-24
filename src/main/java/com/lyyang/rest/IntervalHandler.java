@@ -24,7 +24,7 @@ public class IntervalHandler {
                         .map(l -> new SimpleDateFormat("HH:mm:ss").format(new Date())), String.class);
     }
 
-    public Mono<ServerResponse> sayHello(ServerRequest request) {
+    public Mono<ServerResponse> checkParameter(ServerRequest request) {
         try {
 
             request.queryParam("name").get();

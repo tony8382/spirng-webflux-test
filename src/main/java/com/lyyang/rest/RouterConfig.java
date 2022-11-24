@@ -30,6 +30,6 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> intervalRouter() {
         return route(GET("fhello3"), intervalHandler::getTimes)
-                .andRoute(GET("fhello4"), intervalHandler::sayHello);
+                .andRoute(GET("fhello4"), intervalHandler::checkParameter);
     }
 }
