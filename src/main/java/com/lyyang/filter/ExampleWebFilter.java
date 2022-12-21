@@ -27,6 +27,14 @@ public class ExampleWebFilter implements WebFilter {
         }
         serverWebExchange.getResponse()
                 .getHeaders().add("web-filter", "web-filter-test");
-        return webFilterChain.filter(serverWebExchange);
+
+        Mono<Void> result = webFilterChain.filter(serverWebExchange);
+
+
+        return result.doOnSuccess((c)->{
+            log.info("HIHI S:{}", serverWebExchange.getResponse().getStatusCode());
+        }).doOnError((c)->{
+            log.info("HIHI E:{} {}",c.getMessage(), serverWebExchange.getResponse().getStatusCode());
+        });
     }
 }

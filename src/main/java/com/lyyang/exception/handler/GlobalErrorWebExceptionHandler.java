@@ -1,6 +1,7 @@
 package com.lyyang.exception.handler;
 
 import com.lyyang.exception.enums.ErrorAttributesKey;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
+@Slf4j
 @Component
 @Order(-2)
 public class GlobalErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
@@ -38,6 +40,7 @@ public class GlobalErrorWebExceptionHandler extends AbstractErrorWebExceptionHan
         final Map<String, Object> errorPropertiesMap = getErrorAttributes(request, ErrorAttributeOptions.defaults());
 
         int statusCode = Integer.parseInt(errorPropertiesMap.get(ErrorAttributesKey.STATUS.getKey()).toString());
+        log.error("error:{} {}", request.requestPath(), statusCode);
         return ServerResponse.status(HttpStatus.valueOf(statusCode))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(errorPropertiesMap));
