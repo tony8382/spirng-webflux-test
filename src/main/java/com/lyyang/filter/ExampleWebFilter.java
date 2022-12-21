@@ -33,8 +33,6 @@ public class ExampleWebFilter implements WebFilter {
 
         return result.doOnSuccess((c)->{
             log.info("HIHI S:{}", serverWebExchange.getResponse().getStatusCode());
-        }).doOnError((c)->{
-            log.info("HIHI E:{} {}",c.getMessage(), serverWebExchange.getResponse().getStatusCode());
         });
     }
 }
