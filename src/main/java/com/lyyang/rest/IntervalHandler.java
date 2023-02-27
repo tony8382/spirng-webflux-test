@@ -3,6 +3,7 @@ package com.lyyang.rest;
 import com.lyyang.exception.AAException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -19,6 +20,7 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 @Service
 public class IntervalHandler {
 
+    @PreAuthorize("hasRole('ADMIN')")
     public Mono<ServerResponse> getTimes(ServerRequest serverRequest) {
         return ok().contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(Flux.interval(Duration.ofSeconds(1))
